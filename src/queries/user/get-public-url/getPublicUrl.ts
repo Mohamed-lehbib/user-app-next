@@ -1,4 +1,4 @@
-import { supabaseService } from "@/api/config/supabase";
+import { supabaseService } from "@/lib/supabase";
 import { UUID } from "crypto";
 
 interface FileData {

@@ -1,4 +1,4 @@
-import { supabase } from "@/api/config/supabase";
+import { supabase } from "@/lib/supabase";
 import { User } from "@/data/types/user";
 import { getPublicUrl } from "../get-public-url/getPublicUrl";
 

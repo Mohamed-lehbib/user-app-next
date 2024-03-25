@@ -1,4 +1,4 @@
-import { supabaseService } from "@/api/config/supabase";
+import { supabaseService } from "@/lib/supabase";
 
 export async function uploadUserImage(image: File): Promise<string | null> {
   const { v4: uuidv4 } = require("uuid");

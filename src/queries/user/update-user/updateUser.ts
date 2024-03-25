@@ -1,6 +1,6 @@
 import { User } from "@/data/types/user";
 import { uploadUserImage } from "../upload-user-image/uploadUserImage";
-import { supabase, supabaseService } from "@/api/config/supabase";
+import { supabase, supabaseService } from "@/lib/supabase";
 
 export async function updateUser(
   user: User,

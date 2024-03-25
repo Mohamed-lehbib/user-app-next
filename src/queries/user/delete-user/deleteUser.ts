@@ -1,4 +1,4 @@
-import { supabase } from "@/api/config/supabase";
+import { supabase } from "@/lib/supabase";
 import { deleteUserImage } from "../delete-user-image/deleteUserImage";
 
 export async function deleteUser(

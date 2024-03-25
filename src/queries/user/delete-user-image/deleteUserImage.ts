@@ -1,4 +1,4 @@
-import { supabaseService } from "@/api/config/supabase";
+import { supabaseService } from "@/lib/supabase";
 
 export async function deleteUserImage(image_name: string): Promise<void> {
   try {

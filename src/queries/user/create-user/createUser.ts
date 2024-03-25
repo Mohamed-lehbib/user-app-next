@@ -1,4 +1,4 @@
-import { supabase } from "@/api/config/supabase";
+import { supabase } from "@/lib/supabase";
 import { uploadUserImage } from "../upload-user-image/uploadUserImage";
 import { uploadUserFiles } from "../upload-user-files/uploadUserFiles";
 

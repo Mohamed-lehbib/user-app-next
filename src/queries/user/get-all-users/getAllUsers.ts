@@ -1,6 +1,6 @@
 import { User } from "@/data/types/user";
 
-import { supabase } from "@/api/config/supabase";
+import { supabase } from "@/lib/supabase";
 import { SupabaseError } from "@/data/props/supabaseError";
 import { getPublicUrl } from "../get-public-url/getPublicUrl";
 
