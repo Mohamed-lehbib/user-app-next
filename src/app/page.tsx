@@ -1,34 +1,22 @@
-import RoleFilter from "@/components/roleFilter";
-import SearchBar from "@/components/searchBar";
 import UserTable from "@/components/userTable";
-import { User } from "@/data/types/user";
+import { usePathname, useSearchParams } from "next/navigation";
 import { getAllUsers } from "@/queries/user/get-all-users/getAllUsers";
-import { GetServerSideProps } from "next";
-import Image from "next/image";
+import SearchAndFilter from "@/components/searchAndFilter";
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const searchQuery = Array.isArray(context.query.search)
-//     ? context.query.search[0]
-//     : context.query.search || "";
-//   const selectedRole = Array.isArray(context.query.role)
-//     ? context.query.role[0]
-//     : context.query.role || "";
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { search: string; role: string };
+}) {
+  console.log(`search: ${searchParams.search}, role: ${searchParams.role}`);
+  const users = await getAllUsers(searchParams.search, searchParams.role);
 
-//   // Fetch your users based on these parameters
-//   const users = await getAllUsers(searchQuery, selectedRole);
-
-//   return { props: { users } };
-// };
-
-export default async function Home() {
-  // { users }: { users: User[] }
-  // const users = await getAllUsers(searchQuery, selectedRole);
-  const users = await getAllUsers();
   return (
-    <div>
-      <SearchBar />
-      <RoleFilter />
-      <UserTable users={users} />
+    <div className="max-w-4xl mx-auto p-5 bg-white shadow rounded-lg">
+      <SearchAndFilter />
+      <div className="mt-8">
+        <UserTable users={users} />
+      </div>
     </div>
   );
 }

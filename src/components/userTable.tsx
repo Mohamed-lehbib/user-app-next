@@ -1,25 +1,8 @@
 import { User } from "@/data/types/user";
 import Link from "next/link";
 
-export default function UserTable({ users }: { users: User[] }) {
-  // // Function to handle user deletion
-  // const handleDelete = async (userId: number) => {
-  //   if (confirm("Are you sure you want to delete this user?")) {
-  //     const res = await fetch(`/api/users/${userId}`, {
-  //       method: "DELETE",
-  //     });
-  //     const data = await res.json();
-  //     if (res.ok) {
-  //       // You might want to refresh the data here or use a state management solution
-  //       alert("User deleted successfully");
-  //       // For simplicity, reloading the page to reflect the changes
-  //       window.location.reload();
-  //     } else {
-  //       alert(`Error deleting user: ${data.error}`);
-  //     }
-  //   }
-  // };
-
+export default function UserTable({ users }: Readonly<{ users: User[] }>) {
+  // console.log("hello world");
   return (
     <div className="overflow-x-auto">
       <table className="w-full border-collapse border border-gray-300">
@@ -43,7 +26,7 @@ export default function UserTable({ users }: { users: User[] }) {
                 <div className="flex justify-start space-x-2">
                   <Link href={`/edit/${user.id}`}>
                     {/* <a className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-lg"> */}
-                      Edit
+                    Edit
                     {/* </a> */}
                   </Link>
                   <button
