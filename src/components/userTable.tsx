@@ -25,11 +25,7 @@ export default function UserTable({ users }: Readonly<{ users: User[] }>) {
               <td className="border border-gray-300 px-4 py-2">{user.role}</td>
               <td className="border border-gray-300 px-4 py-2">
                 <div className="flex justify-start space-x-2">
-                  <Link href={`/edit/${user.id}`}>
-                    {/* <a className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-lg"> */}
-                    Edit
-                    {/* </a> */}
-                  </Link>
+                  <Link href={`/edit/${user.id}`}>Edit</Link>
                   <DeleteUserButton
                     userId={user.id}
                     imageName={user.image_name}

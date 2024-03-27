@@ -56,8 +56,8 @@ export default function CreateUserForm() {
     };
     try {
       // console.log(formData);
-      console.log(data);
-      const response = await fetch("/api/create-user", {
+      // console.log(data);
+      const response = await fetch("/api/users/create-user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

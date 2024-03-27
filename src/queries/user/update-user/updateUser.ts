@@ -4,12 +4,12 @@ import { supabase, supabaseService } from "@/lib/supabase";
 
 export async function updateUser(
   user: User,
-  addedFiles: File[],
-  deletedFiles: { file_id: string; file_name: string }[],
+  addedFiles?: File[],
+  deletedFiles?: { file_id: string; file_name: string }[],
   image?: File
 ): Promise<void> {
   try {
-    console.log(image);
+    // console.log(image);
     // Extract user details
     const { id, name, email, password, role } = user;
 
@@ -85,7 +85,7 @@ export async function updateUser(
 
           // Handle added files
           let addedFileUUIDs: string[] = [];
-          if (addedFiles.length > 0) {
+          if (addedFiles && addedFiles.length > 0) {
             for (const file of addedFiles) {
               const fileUUID = await uploadUserImage(file);
               // Assuming uploadUserImage returns a UUID string or undefined
@@ -105,7 +105,7 @@ export async function updateUser(
           }
 
           // Handle deleted files
-          if (deletedFiles.length > 0) {
+          if (deletedFiles && deletedFiles.length > 0) {
             const deletedFilesNames = deletedFiles.map(
               (file) => file.file_name
             );

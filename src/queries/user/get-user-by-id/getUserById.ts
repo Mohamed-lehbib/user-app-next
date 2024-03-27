@@ -39,7 +39,7 @@ export async function getUserById(
           }
         }
       }
-      console.log(`file Name: ${user.file_names}`);
+      // console.log(`file Name: ${user.file_names}`);
       return user;
     } else {
       console.error("User not found");
