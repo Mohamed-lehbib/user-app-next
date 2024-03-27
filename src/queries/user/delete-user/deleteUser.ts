@@ -3,7 +3,6 @@ import { deleteUserImage } from "../delete-user-image/deleteUserImage";
 
 export async function deleteUser(
   id: number,
-  setListlen: React.Dispatch<React.SetStateAction<number>>,
   image_name?: string
 ): Promise<void> {
   try {
@@ -22,8 +21,6 @@ export async function deleteUser(
     }
     console.log("User deleted successfully:", id);
 
-    // Update the list length state
-    setListlen((prev) => prev - 1);
   } catch (error) {
     console.error("Error deleting user:", (error as Error).message);
   }

@@ -3,13 +3,14 @@ import { User } from "@/data/types/user";
 import { supabase } from "@/lib/supabase";
 import { SupabaseError } from "@/data/props/supabaseError";
 import { getPublicUrl } from "../get-public-url/getPublicUrl";
+import { v4 as uuidv4 } from 'uuid';
 
 export async function getAllUsers(
   name?: string,
   role?: string
 ): Promise<User[]> {
   try {
-    let query = supabase.from("users").select("*");
+    let query = supabase.from("users").select("*").neq("name", uuidv4());
     if (role) {
       query = query.eq("role", role);
     }

@@ -1,5 +1,4 @@
 import UserTable from "@/components/userTable";
-import { usePathname, useSearchParams } from "next/navigation";
 import { getAllUsers } from "@/queries/user/get-all-users/getAllUsers";
 import SearchAndFilter from "@/components/searchAndFilter";
 

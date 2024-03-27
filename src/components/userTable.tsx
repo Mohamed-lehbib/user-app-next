@@ -1,5 +1,6 @@
 import { User } from "@/data/types/user";
 import Link from "next/link";
+import DeleteUserButton from "./deleteUserButton";
 
 export default function UserTable({ users }: Readonly<{ users: User[] }>) {
   // console.log("hello world");
@@ -29,12 +30,10 @@ export default function UserTable({ users }: Readonly<{ users: User[] }>) {
                     Edit
                     {/* </a> */}
                   </Link>
-                  <button
-                    className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-lg"
-                    // onClick={() => handleDelete(user.id)}
-                  >
-                    Delete
-                  </button>
+                  <DeleteUserButton
+                    userId={user.id}
+                    imageName={user.image_name}
+                  />
                 </div>
               </td>
             </tr>
