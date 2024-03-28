@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next & Supabase
 
-## Getting Started
+## Generating the TypeScript File from Supabase CLI
 
-First, run the development server:
+1. I have installed the supabase cli on my machine using **HomeBrew**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+brew install supabase/tap/supabase
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Then i have upgraded it using this command
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+brew upgrade supabase
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. Then I have logged in my supabase account using this command
 
-## Learn More
+```
+supabase login
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. Then I have initialized supabase in my project
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+supabase init
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+5. Then I have linked this project to the supabase project in the cloud
 
-## Deploy on Vercel
+```
+supabase link --project-ref project-reference database-password
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+replace `project-reference` with the project reference u can find it in the url of the project in the Browser and `database-password` it's the password that i have gave to the database when u have created it if u don't remenber it u can change it in the project **settings** under the **Database** reset password
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+6. Finally, I generated a typescript file with this command
+
+```
+supabase gen types typescript --linked > src/data/types/supabase.d.ts
+```
