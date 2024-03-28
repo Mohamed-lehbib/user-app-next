@@ -1,72 +1,46 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
-
-function fileToBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      resolve(reader.result as string);
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
+import { UserType } from "@/data/types/collection";
 
 export default function CreateUserForm() {
-  const router = useRouter(); // Use Next.js useRouter hook for navigation
+  const router = useRouter();
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [role, setRole] = useState<string>("");
-  const [imageFile, setImageFile] = useState<File | null>(null); // Correctly include null as a type for the imageFile state
-  const [documentFiles, setDocumentFiles] = useState<File[]>([]); // For document uploads
+  // Ensure role uses the specific type from UserType (assuming it's exposed/importable for typing here)
+  const [role, setRole] = useState<UserType["role"] | undefined>(undefined); // Temporary use `""` to allow for a default/no-selection state
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    // // Prepare FormData for file upload
-    // const formData = new FormData();
-    // formData.append("name", name);
-    // formData.append("email", email);
-    // formData.append("password", password);
-    // formData.append("role", role);
-    // if (imageFile) {
-    //   formData.append("imageFile", imageFile);
-    // }
-    // documentFiles.forEach((file, index) =>
-    //   formData.append(`documentFiles[${index}]`, file)
-    // );
-    // // Convert single image file to Base64
-    // const imageFileBase64 = imageFile ? await fileToBase64(imageFile) : null;
+    // Before creating a user, you might need to upload files/image and get their identifiers
+    // This step is omitted here for simplicity but should be included in your implementation
 
-    // // Convert each document file to Base64
-    // const documentFilesBase64Promises = documentFiles.map((file) =>
-    //   fileToBase64(file)
-    // );
-    // const documentFilesBase64 = await Promise.all(documentFilesBase64Promises);
+    // Validation example
+    if (!role) {
+      console.error("Please select a role.");
+      return;
+    }
 
-    const data = {
-      name: name,
-      email: email,
-      password: password,
-      role: role,
-      // imageFile: imageFileBase64,
-      // documentFiles: documentFilesBase64,
+    // Ensure the submitted data fits the UserType structure, except for file handling
+    const userData: Omit<
+      UserType,
+      "id" | "created_at" | "image_id" | "files"
+    > & { role: string } = {
+      name,
+      email,
+      password,
+      role, // Ensure role matches the expected type, though this line temporarily coerces it back to string for simplicity
     };
+
     try {
-      // console.log(formData);
-      // console.log(data);
       const response = await fetch("/api/users/create-user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // "Content-Type": "multipart/form-data",
         },
-        // body: JSON.stringify(formData),
-        // body: formData,
-        // body: JSON.stringify({ name: "ahmed" }),
-        body: JSON.stringify(data),
+        body: JSON.stringify(userData),
       });
 
       if (response.ok) {
@@ -77,12 +51,6 @@ export default function CreateUserForm() {
       }
     } catch (error) {
       console.error("Error creating user:", error);
-    }
-  };
-
-  const handleDocumentFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setDocumentFiles(Array.from(e.target.files));
     }
   };
 
@@ -138,47 +106,18 @@ export default function CreateUserForm() {
           </label>
           <select
             id="role"
-            value={role}
-            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-              setRole(e.target.value)
-            }
+            value={role || ""} // Use the role or fallback to an empty string for the select value
+            onChange={(e) => setRole(e.target.value as UserType["role"])}
             className="border border-gray-300 rounded-md px-3 py-2 w-full"
           >
-            <option value="">Select Role</option>
+            <option value="" disabled>
+              Select Role
+            </option>
             <option value="admin">Admin</option>
             <option value="user">User</option>
             <option value="technician">Technician</option>
           </select>
         </div>
-        {/* <div>
-          <label htmlFor="imageFile" className="block mb-1">
-            Profile Image
-          </label>
-          <input
-            type="file"
-            id="imageFile"
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setImageFile(
-                e.target.files && e.target.files.length > 0
-                  ? e.target.files[0]
-                  : null
-              )
-            }
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
-          />
-        </div>
-        <div>
-          <label htmlFor="documentFiles" className="block mb-1">
-            Document Files
-          </label>
-          <input
-            type="file"
-            id="documentFiles"
-            onChange={handleDocumentFileChange}
-            multiple
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
-          />
-        </div> */}
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md"

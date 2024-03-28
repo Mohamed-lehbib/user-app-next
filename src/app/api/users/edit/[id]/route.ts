@@ -1,11 +1,12 @@
 import { updateUser } from "@/queries/user/update-user/updateUser";
 import { User } from "@/data/types/user";
+import { UserType } from "@/data/types/collection";
 
 export async function PUT(request: Request) {
   try {
     const userData = await request.json();
 
-    const updatedUser = await updateUser(userData as User);
+    const updatedUser = await updateUser(userData as UserType);
 
     return new Response(JSON.stringify(updatedUser), {
       status: 200,

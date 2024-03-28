@@ -36,7 +36,6 @@ export default function UpdateUser({ params }: { params: { id: string } }) {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // Include the ID in the body
     const userData = {
       id: id,
       name: name,

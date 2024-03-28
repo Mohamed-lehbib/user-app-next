@@ -1,8 +1,9 @@
 import { User } from "@/data/types/user";
 import Link from "next/link";
 import DeleteUserButton from "./deleteUserButton";
+import { UserType } from "@/data/types/collection";
 
-export default function UserTable({ users }: Readonly<{ users: User[] }>) {
+export default function UserTable({ users }: Readonly<{ users: UserType[] }>) {
   // console.log("hello world");
   return (
     <div className="overflow-x-auto">
@@ -28,7 +29,7 @@ export default function UserTable({ users }: Readonly<{ users: User[] }>) {
                   <Link href={`/edit/${user.id}`}>Edit</Link>
                   <DeleteUserButton
                     userId={user.id}
-                    imageName={user.image_name}
+                    // imageName={user.image_name}
                   />
                 </div>
               </td>
